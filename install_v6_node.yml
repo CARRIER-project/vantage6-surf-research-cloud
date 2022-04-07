@@ -1,0 +1,53 @@
+- name: Configure vantage6 node
+  hosts:
+    - nodes
+  vars:
+    data_file: "/app/data.csv"
+    install_dir: "/app"
+    private_key_path: "/app/node_rsa"
+    config_path: "/app/surf_node.yaml"
+  tasks:
+    # Stop node in case we are reinstalling
+    - name: Stop node
+      become: yes
+      ignore_errors: yes
+      command:
+        chdir: /app
+        cmd: vnode stop --all
+
+    - name: Install vantage6
+      become: yes
+      pip:
+        name:
+          - vantage6
+        state: latest
+
+    - name: Generate private key
+      become: yes
+      openssl_privatekey:
+        path: "{{private_key_path}}"
+        type: RSA
+
+    - name: Create config file for node
+      become: yes
+      vars:
+        node_api_key: "{{stdout.stdout_lines[-1]}}"
+      template:
+        src: files/node/surf_node.yaml
+        dest: "{config_path}"
+
+    - name: Prune docker
+      become: yes
+      shell:
+        cmd: "docker system prune -f"
+
+    - name: Run node
+      environment:
+        LC_ALL: "C.UTF-8"
+        LANG: "C.UTF-8"
+      become: yes
+      ignore_errors: yes
+      command:
+        chdir: /app
+        cmd: "vnode start --detach --auto-remove -c /app/surf_node.yaml"
+

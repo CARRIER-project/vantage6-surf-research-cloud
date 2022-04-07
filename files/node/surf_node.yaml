@@ -1,0 +1,20 @@
+application:
+  api_key: "{{api_key}}"
+  api_path: "/api"
+  databases:
+    default: "{{data_file}}"
+  encryption:
+    enabled: true
+    private_key: "{{private_key_path}}"
+  logging:
+    backup_count: 5
+    datefmt: "%Y-%m-%d %H:%M:%S"
+    file: "dummy.log"
+    format: "%(asctime)s - %(name)-14s - %(levelname)-8s - %(message)s"
+    level: DEBUG
+    max_size: 1024
+    use_console: true
+  port: "443"
+  server_url: "https://{{v6_server_domain}}"
+  task_dir: "/usr/local/share/vantage6/node/dummy"
+
