@@ -15,6 +15,6 @@ application:
     max_size: 1024
     use_console: true
   port: "443"
-  server_url: "https://{{v6_server_domain}}"
+  server_url: "https://{{v6_server_address}}"
   task_dir: "/usr/local/share/vantage6/node/dummy"
 
