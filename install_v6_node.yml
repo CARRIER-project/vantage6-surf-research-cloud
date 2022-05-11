@@ -6,6 +6,7 @@
     install_dir: "/app"
     private_key_path: "/app/node_rsa"
     config_path: "/app/surf_node.yaml"
+    v6_version: "3.0.4"
   tasks:
     # Stop node in case we are reinstalling
     - name: Stop node
@@ -19,7 +20,7 @@
       become: yes
       pip:
         name:
-          - vantage6
+          - vantage6=={v6_version}
         state: latest
 
     - name: Generate private key
