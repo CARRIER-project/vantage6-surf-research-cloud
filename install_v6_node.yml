@@ -1,4 +1,6 @@
 - name: Configure vantage6 node
+  hosts:
+    - localhost
   vars:
     data_file: "/app/data.csv"
     install_dir: "/app"
