@@ -11,7 +11,7 @@
     - name: Create install dir
       become: yes
       file:
-        path: {{install_dir}}
+        path: "{{install_dir}}"
         state: directory
     # Stop node in case we are reinstalling
     - name: Stop node
@@ -24,7 +24,7 @@
       become: yes
       pip:
         name:
-          - vantage6=={{v6_version}}
+          - "vantage6=={{v6_version}}"
         state: latest
 
     - name: Generate private key
