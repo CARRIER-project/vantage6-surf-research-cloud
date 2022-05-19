@@ -8,6 +8,11 @@
     config_path: "/app/surf_node.yaml"
     v6_version: "3.0.4"
   tasks:
+    - name: Create install dir
+      become: yes
+      file:
+        path: {install_dir}
+        state: directory
     # Stop node in case we are reinstalling
     - name: Stop node
       become: yes
