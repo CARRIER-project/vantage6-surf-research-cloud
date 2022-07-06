@@ -39,7 +39,7 @@
         node_api_key: "{{stdout.stdout_lines[-1]}}"
       template:
         src: files/node/surf_node.yaml
-        dest: "{config_path}"
+        dest: "{{config_path}}"
 
     - name: Prune docker
       become: yes
@@ -54,5 +54,5 @@
       ignore_errors: yes
       command:
         chdir: /app
-        cmd: "vnode start --detach --auto-remove -c /app/surf_node.yaml"
+        cmd: "vnode start --detach --auto-remove -c {{config_path}}"
 
